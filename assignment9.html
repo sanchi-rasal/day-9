@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+    font-family: Arial;
+    text-align: center;
+}
+
+input, button{
+    padding: 8px;
+    margin: 10px;
+}
+
+button{
+    background-color: rgb(66, 66, 131);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+table{
+    width: 70%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+th{
+    background-color: rgb(50, 116, 50);
+    color: white;
+}
+
+th, td{
+    border: 1px solid black;
+    padding: 10px;
+}
+</style>
+</head>
+<body>
+
+<h2>Student Registration</h2>
+
+<input type="text" id="name" placeholder="Student Name">
+<button id="add">Add Student</button>
+
+<table>
+    <tr>
+        <th>Sr No</th>
+        <th>Student Name</th>
+        <th>Action</th>
+    </tr>
+    <tbody id="table"></tbody>
+</table>
+
+<script>
+let students = [];
+
+document.getElementById("add").addEventListener("click", function() {
+    let name = document.getElementById("name").value;
+
+    students.push({
+        id: students.length + 1,
+        name: name
+    });
+
+    showData();
+    document.getElementById("name").value = "";
+});
+
+function showData() {
+    let rows = "";
+
+    students.forEach((s, i) => {
+        rows += `
+        <tr>
+            <td>${s.id}</td>
+            <td>${s.name}</td>
+            <td>
+                <button onclick="deleteStudent(${i})">Delete</button>
+            </td>
+        </tr>`;
+    });
+
+    document.getElementById("table").innerHTML = rows;
+}
+
+function deleteStudent(i) {
+    students.splice(i, 1);
+    showData();
+}
+</script>
+
+</body>
+</html>
